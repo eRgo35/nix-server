@@ -31,6 +31,11 @@
     enableCompletion = true;
     shellAliases = {
       la = "ls -la";
+      ga = "git add .";
+      gs = "git status";
+      gc = "git commit";
+      gu = "git push";
+      gp = "git pull";
     };
   };
 

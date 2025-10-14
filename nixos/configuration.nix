@@ -48,8 +48,9 @@
   programs.nix-ld.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [22 80 443];
+  networking.firewall.allowedTCPPorts = [22];
   # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.enable = false;
 
   system.autoUpgrade = {
     enable = true;

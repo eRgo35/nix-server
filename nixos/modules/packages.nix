@@ -28,6 +28,7 @@
     iftop
     tldr
     gnupg
+    wireguard-tools
 
     # system call monitoring
     strace
