@@ -14,7 +14,9 @@
         "fd31:bf08:57cb::1/128"
       ];
 
-      dns = ["127.0.0.1"];
+      listenPort = 51820;
+
+      dns = ["1.1.1.1" "127.0.0.1"];
 
       privateKeyFile = "/home/mike/.nixos/secrets/wireguard-keys/freya.key";
 

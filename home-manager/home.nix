@@ -32,6 +32,8 @@
     shellAliases = {
       la = "ls -la";
       ga = "git add";
+      gaa = "git add .";
+      gap = "git add -p";
       gs = "git status";
       gc = "git commit -m";
       gu = "git push";
