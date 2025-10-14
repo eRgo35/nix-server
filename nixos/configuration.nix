@@ -10,6 +10,7 @@
     ./modules/packages.nix
     ./modules/ssh.nix
     ./modules/users.nix
+    ./modules/wireguard.nix
   ];
 
   networking.hostName = "freya"; # Define your hostname.
