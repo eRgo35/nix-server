@@ -3,7 +3,7 @@
   networking.nat = {
     enable = true;
     enableIPv6 = true;
-    externalInterface = "eno1";
+    externalInterface = "ens6";
     internalInterfaces = ["wg0"];
   };
 
@@ -11,12 +11,11 @@
     wg0 = {
       address = [
         "192.168.200.1/32"
-        "fd31:bf08:57cb::1/128"
       ];
 
       listenPort = 51820;
 
-      dns = ["1.1.1.1" "127.0.0.1"];
+      dns = ["1.1.1.1" "8.8.8.8" "127.0.0.1"];
 
       privateKeyFile = "/home/mike/.nixos/secrets/wireguard-keys/freya.key";
 
@@ -42,7 +41,6 @@
           publicKey = "tQR3oc+pGYhQ1XlMzlEDpD17sRgMFhmSXZBEW6jF6Rc=";
           allowedIPs = [
             "192.168.200.3/32"
-            "fd31:bf08:57cb::3/128"
           ];
         }
         # More peers can be added here.
@@ -53,7 +51,7 @@
   # Open ports in the firewall
   networking.firewall = {
     allowedTCPPorts = [53];
-    allowedUDPPorts = [53];
+    allowedUDPPorts = [53 51820];
   };
 
   services = {

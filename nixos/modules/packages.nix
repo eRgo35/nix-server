@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     # programs
     nnn
+    zellij
 
     # editors
     vim
