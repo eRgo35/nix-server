@@ -18,17 +18,6 @@
     # Listen on all interfaces
     listenOn = ["any"];
 
-    # Enable recursion for local networks
-    recursion = "yes";
-
-    # Limit who can use recursion
-    allowRecursion = [
-      "127.0.0.0/8"
-      "::1/128"
-      "192.168.200.0/24" # Wireguard network
-      "192.168.0.0/24" # Home network
-    ];
-
     zones = {
       # Root domain zone
       "c2yz.com" = {
