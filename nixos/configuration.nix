@@ -5,6 +5,8 @@
   imports = [
     ./hardware-configuration.nix
 
+    ./modules/bind.nix
+    ./modules/fail2ban.nix
     ./modules/gnupg.nix
     ./modules/nh.nix
     ./modules/packages.nix
