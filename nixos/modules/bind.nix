@@ -2,6 +2,11 @@
   services.bind = {
     enable = true;
 
+    forwarders = [
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
+
     # Limit recursive queries (cache access) to local/internal networks
     cacheNetworks = [
       "127.0.0.0/8"
