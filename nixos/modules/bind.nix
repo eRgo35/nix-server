@@ -1,11 +1,11 @@
 {pkgs, ...}: {
   services.bind = {
     enable = true;
-    cacheNetworks = ["127.0.0.0/24" "::1/128" "192.168.0.0/24"];
+    cacheNetworks = ["127.0.0.0/8" "::1/128" "192.168.0.0/24"];
     zones = {
       "c2yz.com" = {
         master = true;
-        allowQuery = ["127.0.0.0/24" "::1/128" "192.168.0.0/24"];
+        allowQuery = ["127.0.0.0/8" "::1/128" "192.168.0.0/24"];
         file = pkgs.writeText "zone-example.com" ''
           ...
         '';
