@@ -11,35 +11,65 @@
     cacheNetworks = [
       "127.0.0.0/8"
       "::1/128"
-      "192.168.200.0/24"
-      "192.168.0.0/24"
+      "192.168.200.0/24" # Wireguard network
+      "192.168.0.0/24" # Home network
+    ];
+
+    # Listen on all interfaces
+    listenOn = ["any"];
+
+    # Enable recursion for local networks
+    recursion = "yes";
+
+    # Limit who can use recursion
+    allowRecursion = [
+      "127.0.0.0/8"
+      "::1/128"
+      "192.168.200.0/24" # Wireguard network
+      "192.168.0.0/24" # Home network
     ];
 
     zones = {
-      # "c2yz.com" = {
-      #   master = true;
-      #   allowQuery = [
-      #     "127.0.0.0/8"
-      #     "::1/128"
-      #     "192.168.0.0/24"
-      #     "192.168.200.0/24"
-      #   ];
-      #   file = pkgs.writeText "zone-c2yz.com" ''
-      #     ; TODO: add your c2yz.com zone records here
-      #   '';
-      # };
+      # Root domain zone
+      "c2yz.com" = {
+        master = true;
+        allowQuery = [
+          "127.0.0.0/8"
+          "::1/128"
+          "192.168.0.0/24" # Home LAN
+          "192.168.200.0/24" # Wireguard network
+        ];
+        file = pkgs.writeText "zone-c2yz.com" ''
+          $TTL 300
+          @   IN SOA ns1.c2yz.com. admin.c2yz.com. (
+                    2025102101 ; serial
+                    3600       ; refresh
+                    600        ; retry
+                    604800     ; expire
+                    86400      ; minimum
+          )
+          @   IN NS ns1.c2yz.com.
+          ns1 IN A 192.168.200.1
+          @   IN A 89.168.90.251
 
+          ; Delegate photos subdomain
+          photos IN NS ns1.c2yz.com.
+        '';
+      };
+
+      # Photos subdomain
       "photos.c2yz.com" = {
         master = true;
         allowQuery = [
-          "127.0.0.1"
+          "127.0.0.0/8"
           "::1/128"
-          "192.168.200.0/24"
+          "192.168.0.0/24" # Home LAN
+          "192.168.200.0/24" # Wireguard network
         ];
         file = pkgs.writeText "zone-photos.c2yz.com" ''
           $TTL 300
           @   IN SOA ns1.c2yz.com. admin.c2yz.com. (
-                    2025102101 ; serial (update)
+                    2025102102 ; serial (updated)
                     3600       ; refresh
                     600        ; retry
                     604800     ; expire
@@ -51,5 +81,22 @@
         '';
       };
     };
+
+    # Log DNS queries for monitoring
+    extraConfig = ''
+      logging {
+        channel query_log {
+          file "/var/log/named/query.log" versions 3 size 5m;
+          severity info;
+          print-time yes;
+        };
+        category queries { query_log; };
+      };
+    '';
   };
+
+  # Ensure the log directory exists
+  systemd.tmpfiles.rules = [
+    "d /var/log/named 0750 named named - -"
+  ];
 }

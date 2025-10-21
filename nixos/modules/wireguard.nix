@@ -1,21 +1,27 @@
 {pkgs, ...}: {
+  # Enable IP forwarding for routing
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
+
   # Enable NAT
   networking.nat = {
     enable = true;
     enableIPv6 = true;
-    externalInterface = "ens6";
+    externalInterface = "eno1";
     internalInterfaces = ["wg0"];
   };
 
   networking.wg-quick.interfaces = {
     wg0 = {
       address = [
-        "192.168.200.1/32"
+        "192.168.200.1/24"
       ];
 
       listenPort = 51820;
 
-      dns = ["1.1.1.1" "8.8.8.8" "127.0.0.1"];
+      dns = ["192.168.200.1"];
 
       privateKeyFile = "/home/mike/.nixos/secrets/wireguard-keys/freya.key";
 
@@ -61,12 +67,5 @@
   networking.firewall = {
     allowedTCPPorts = [53];
     allowedUDPPorts = [53 51820];
-  };
-
-  services = {
-    dnsmasq = {
-      enable = true;
-      settings.interface = "wg0";
-    };
   };
 }
