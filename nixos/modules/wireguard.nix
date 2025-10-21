@@ -37,13 +37,26 @@
 
       peers = [
         {
-          # Thor
+          # zion
+          publicKey = "r/wrEqNoJvqfhyg9B8AjhsoiM+7KZp09V9eONIOz9l4=";
+          allowedIPs = [
+            "192.168.200.2/32"
+          ];
+        }
+        {
+          # thor
           publicKey = "tQR3oc+pGYhQ1XlMzlEDpD17sRgMFhmSXZBEW6jF6Rc=";
           allowedIPs = [
             "192.168.200.3/32"
           ];
         }
-        # More peers can be added here.
+        {
+          # loki
+          publicKey = "s+spoHzTZDyaHuAqI3dpVFKQLoy9oCBCZEHhM2Dxcn0=";
+          allowedIPs = [
+            "192.168.200.4/32"
+          ];
+        }
       ];
     };
   };

@@ -55,5 +55,6 @@
     nix-output-monitor
     alejandra
     nixd
+    direnv
   ];
 }
