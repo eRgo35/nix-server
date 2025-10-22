@@ -1,10 +1,4 @@
 {pkgs, ...}: {
-  # Enable IP forwarding for routing
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
-    "net.ipv6.conf.all.forwarding" = 1;
-  };
-
   # Enable NAT
   networking.nat = {
     enable = true;
@@ -65,7 +59,6 @@
 
   # Open ports in the firewall
   networking.firewall = {
-    allowedTCPPorts = [53];
-    allowedUDPPorts = [53 51820];
+    allowedUDPPorts = [51820];
   };
 }

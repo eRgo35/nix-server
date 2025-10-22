@@ -15,9 +15,6 @@
       "192.168.0.0/24" # Home network
     ];
 
-    # Listen on all interfaces
-    listenOn = ["any"];
-
     zones = {
       # Root domain zone
       "c2yz.com" = {
@@ -67,25 +64,15 @@
           @   IN NS ns1.c2yz.com.
           ns1 IN A 192.168.200.1
           @   IN A 192.168.200.1
+          @   IN A 192.168.0.100
         '';
       };
     };
-
-    # Log DNS queries for monitoring
-    extraConfig = ''
-      logging {
-        channel query_log {
-          file "/var/log/named/query.log" versions 3 size 5m;
-          severity info;
-          print-time yes;
-        };
-        category queries { query_log; };
-      };
-    '';
   };
 
-  # Ensure the log directory exists
-  systemd.tmpfiles.rules = [
-    "d /var/log/named 0750 named named - -"
-  ];
+  # Open ports in the firewall
+  networking.firewall = {
+    allowedTCPPorts = [53];
+    allowedUDPPorts = [53];
+  };
 }

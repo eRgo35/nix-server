@@ -2,14 +2,6 @@
   services.fail2ban = {
     enable = true;
     # jails = {
-    #   # Protect SSH
-    #   sshd = ''
-    #     enabled = true
-    #     maxretry = 5
-    #     findtime = 600
-    #     bantime = 3600
-    #   '';
-
     #   # Protect BIND DNS
     #   bind = ''
     #     enabled = true
