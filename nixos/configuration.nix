@@ -7,6 +7,7 @@
 
     ./modules/bind.nix
     ./modules/fail2ban.nix
+    ./modules/git.nix
     ./modules/gnupg.nix
     ./modules/nh.nix
     ./modules/packages.nix
